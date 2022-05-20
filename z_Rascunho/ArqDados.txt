@@ -1,0 +1,30 @@
+*ARQUIVO DE DADOS* 
+
+-Cabeçalho - int para o ultimo valor do id
+-Registros
+
+*REGISTRO*
+
+-Lápide --> * ou '
+-Indicador de tamanho do registro --> tamanho do vetor em bytes
+-id
+-nome
+-cnpj
+-cidade
+-partidas
+-pontos
+
+
+*ARQUIVO DE INDICE*
+
+-id do Clube
+-posição do registro no arquivo de dados
+
+
+*LISTA INVERTIDA*
+
+- Termo
+- ID dos registros que contem o termo
+
+
+
