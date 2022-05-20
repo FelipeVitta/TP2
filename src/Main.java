@@ -41,18 +41,18 @@ public class Main {
             // CRIAR UM CLUBE
 
             case 1:
-               //entrada de dados do usuário:
-               //usuário digita nome
+               // entrada de dados do usuário:
+               // usuário digita nome
                System.out.println("\nDigite o nome do Clube\n");
                nome = sc.nextLine();
                nome = sc.nextLine();
-               //usuário digita cnpj
+               // usuário digita cnpj
                System.out.println("\nDigite o CNPJ do Clube\n");
                cnpj = sc.nextLine();
                System.out.println("\nDigite a cidade do Clube\n");
-               //usuário digita cidade
+               // usuário digita cidade
                cidade = sc.nextLine();
-               //chamada do método para a criação de um clube
+               // chamada do método para a criação de um clube
                crud.createClub(new Clube(nome, cnpj, cidade));
 
                break;
@@ -62,30 +62,30 @@ public class Main {
             case 2:
 
                try {
-                  //abrindo o arquivo de dados para ler e escrever
+                  // abrindo o arquivo de dados para ler e escrever
                   RandomAccessFile arq = new RandomAccessFile("dados/clubes.db", "rw");
                   int ultimoId = arq.readInt();
                   Clube b = new Clube();
                   System.out.println("\n");
-                  //for que mostra todos os ids e nomes dos clubes validos no arquivo 
+                  // for que mostra todos os ids e nomes dos clubes validos no arquivo
                   for (int i = 1; i <= ultimoId; i++) {
-                     //chamando o método de leitura de clube pelo id
+                     // chamando o método de leitura de clube pelo id
                      b = crud.readClub(i);
                      if (b.getIdClube() > 0) {
                         System.out.println("ID:" + b.getIdClube() + "  Nome: " + b.getNome());
                      }
                   }
-                  //obter o id desejado pelo usuário
+                  // obter o id desejado pelo usuário
                   System.out.println("\nDigite o ID do clube que deseja obter os dados: \n");
                   id = sc.nextInt();
                   b = crud.readClub(id);
-                  //se o id do clube for valido, irá imprimi-lo na tela
+                  // se o id do clube for valido, irá imprimi-lo na tela
                   if (b.getIdClube() > 0) {
                      System.out.println(b);
                   } else {
                      System.out.println("Registro não encontrado");
                   }
-                  //fechando o arquivo
+                  // fechando o arquivo
                   arq.close();
                   // tratamento de erros
                } catch (Exception e) {
@@ -100,12 +100,12 @@ public class Main {
             case 3:
 
                try {
-
+                  // abrindo o arquivo de dados para leitura e escrita
                   RandomAccessFile arq = new RandomAccessFile("dados/clubes.db", "rw");
                   int ultimoId = arq.readInt();
                   Clube b = new Clube();
                   System.out.println("\n");
-                
+                  // mostrando na tela os ids e o nome de todos os clubes validos
                   for (int i = 1; i <= ultimoId; i++) {
                      b = crud.readClub(i);
                      if (b.getIdClube() > 0) {
@@ -114,15 +114,20 @@ public class Main {
                   }
 
                   Clube clube = new Clube();
+                  // usuario digita o id que ele quer atualizar os dados
                   System.out.println("\nQual o ID do clube que você quer atualizar os dados?");
                   opcao = sc.nextInt();
+                  // retornando o clube do respectivo id
                   clube = crud.readClub(opcao);
+                  // se o id for valido:
                   if (clube.getIdClube() > 0) {
+                     // confirmação de atualização
                      System.out.println("\nQuer mesmo atualizar os dados desse clube?: ");
                      System.out.println("\n1-SIM");
                      System.out.println("2-NÃO\n");
                      op = sc.nextInt();
                      if (op == 1) {
+                        //usuario digita os novos dados do clube
                         System.out.println("\nDigite o novo nome: \n");
                         nome = sc.nextLine();
                         nome = sc.nextLine();
@@ -130,8 +135,10 @@ public class Main {
                         cnpj = sc.nextLine();
                         System.out.println("\nDigite a cidade: \n");
                         cidade = sc.nextLine();
+                        //definindo partidas e pontos do clube colo igual ao anterior 
                         partidas = clube.getPartidasJogadas();
                         pontos = clube.getPontos();
+                        //chamando o metodo para atualizar os dados
                         crud.updateClub(clube, nome, cnpj, cidade, partidas, pontos);
                      } else if (op == 2) {
                         System.out.println("Dados do clube mantidos");
@@ -141,9 +148,8 @@ public class Main {
                   } else {
                      System.out.println("Registro não encontrado");
                   }
-
-                  // chamando o metodo no CRUD para ler os dados do clube do id informado
-
+                
+                  //fechando o fluxo de dados para o arquivo
                   arq.close();
                   // tratamento de erros
                } catch (Exception e) {
@@ -204,7 +210,7 @@ public class Main {
 
             case 5:
                try {
-
+                  //abrindo o arquivo de dados para leitura e escrita 
                   RandomAccessFile arq = new RandomAccessFile("dados/clubes.db", "rw");
                   int ultimoId = arq.readInt();
                   Clube b = new Clube();
@@ -221,6 +227,7 @@ public class Main {
                   int gols1, gols2;
                   Clube clube1 = new Clube();
                   Clube clube2 = new Clube();
+                  //usuario digita o id dos clubes que ele quer realizar a partida
                   System.out.println("\nDigite o ID dos dois Clubes que gostaria de realizar a partida\n");
                   // lendos os ids escritos pelo usuário
                   id1 = sc.nextInt();
@@ -258,23 +265,27 @@ public class Main {
                }
                break;
 
-            //PROCURAR ID POR CLUBE OU CIDADE
+            // PROCURAR ID POR CLUBE OU CIDADE
 
             case 6:
-               
+               //criando um arraylist para armazenas os ids retornados
                ArrayList<Integer> arll = new ArrayList<Integer>();
                String resposta;
+               //usuario digita o termo que ele quer encontrar na lista invertida
                System.out.println("\nDigite o nome ou a cidade do(s) Clube(s) que deseja retornar o id: \n");
                resposta = sc.nextLine();
                resposta = sc.nextLine();
+               //arraylist criado recebe os ids do metodo para ler a lista invertida
                arll = crud.readList(resposta);
+               //se o arraylist for igual a 0, não existem ids com o termo
                if (arll.size() == 0) {
                   System.out.println("Não foi encontrado nenhum clube");
-               } else {             
-                  System.out.println("IDS: "+arll.stream().distinct().collect(Collectors.toList()).toString());
-                  
-               }
+               } else {
+                  //imprimindo na tela os ids
+                  System.out.println("IDS: " + arll.stream().distinct().collect(Collectors.toList()).toString());
 
+               }
+                
                break;
 
             default:
@@ -289,7 +300,5 @@ public class Main {
       }
 
    }
-
-   
 
 }
