@@ -281,8 +281,11 @@ public class Main {
                if (arll.size() == 0) {
                   System.out.println("Não foi encontrado nenhum clube");
                } else {
+                  //ordenando o arraylist
+                  Collections.sort(arll);
                   //imprimindo na tela os ids
                   System.out.println("IDS: " + arll.stream().distinct().collect(Collectors.toList()).toString());
+                  
 
                }
                 

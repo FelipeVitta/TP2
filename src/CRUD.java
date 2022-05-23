@@ -282,7 +282,7 @@ public class CRUD {
             // lendo o termo
             nomeArq = arq3.readUTF();
             // se o termo for igual a string informada pelo usuário:
-            if (nomeArq.equals(string)) {
+            if (nomeArq.toLowerCase().equals(string.toLowerCase())) {
                 // colocando o ponteiro na posição em que o id é igual ao id do clube
                 while (arq3.readInt() != id)
                     ;
@@ -324,7 +324,7 @@ public class CRUD {
         // se o tamanho do arquivo for igual a 0, escrever no inicio do arquivo a string
         // e o id
         if (arq3.length() == 0) {
-            arq3.writeUTF(string);
+            arq3.writeUTF(string.toLowerCase());
             arq3.writeInt(id);
             // escrevendo os espaços reservados para os ids que contem aquele termo
             for (int i = 0; i < 19; i++) {
@@ -342,7 +342,7 @@ public class CRUD {
             } else {
                 // escrevendo no final do arquivo
                 arq3.seek(arq3.length());
-                arq3.writeUTF(string);
+                arq3.writeUTF(string.toLowerCase());
                 arq3.writeInt(id);
                 // escrevendo os espaços reservados para aquele termo
                 for (int i = 0; i < 19; i++) {
@@ -400,7 +400,7 @@ public class CRUD {
             // lendo o termo
             nomeArq = arq3.readUTF();
             // se o termo for igual a string informada (o termo existe na lista invertida)
-            if (nomeArq.equals(string)) {
+            if (nomeArq.equals(string.toLowerCase())) {
                 // enquanto não encontrar um espaço para escrever um novo id
                 while (true) {
                     pos = arq3.getFilePointer();
